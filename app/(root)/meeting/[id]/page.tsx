@@ -1,7 +1,12 @@
-import React from "react";
+import React from 'react'
 
-const page = ({ params }: { params: { id: string } }) => {
-  return <div>Room no {params.id}</div>;
-};
+const Meeting = ({
+  params
+}: {params: { id: string }}) => {
+  console.log(params.id);
+  return (
+    <div>Meeting Room {params.id}</div>
+  )
+}
 
-export default page;
+export default Meeting

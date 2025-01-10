@@ -10,6 +10,13 @@ export default {
   theme: {
   	extend: {
   		colors: {
+				dark:{
+					1:'#1c1f2e',
+					2:'#161925'
+				},
+				blue:{
+					1:"#0e78f9"
+				},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -50,11 +57,6 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
   		}
   	}
   },
