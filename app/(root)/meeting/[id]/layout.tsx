@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 
-const MainLayout = ({children}:{children:ReactNode}) => {
+const RootLayout = ({children}:{children:ReactNode}) => {
   return (
     <main>
       navbar
@@ -10,4 +10,4 @@ const MainLayout = ({children}:{children:ReactNode}) => {
   )
 }
 
-export default MainLayout
+export default RootLayout
