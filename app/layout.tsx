@@ -6,6 +6,8 @@ import {
 } from "@clerk/nextjs";
 import StreamVideoProvider from "@/providers/streamClientProvider";
 import { Toaster } from "@/components/ui/toaster";
+import "@stream-io/video-react-sdk/dist/css/styles.css"
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
