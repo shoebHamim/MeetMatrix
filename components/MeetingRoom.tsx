@@ -1,12 +1,14 @@
 import { cn } from "@/lib/utils";
 import {
   CallControls,
+  CallingState,
   CallParticipantsList,
   CallStatsButton,
   PaginatedGridLayout,
   SpeakerLayout,
+  useCallStateHooks,
 } from "@stream-io/video-react-sdk";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LayoutList, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
@@ -32,6 +35,14 @@ const MeetingRoom = () => {
         return <SpeakerLayout participantsBarPosition={"right"} />;
     }
   };
+  const { useCallCallingState } = useCallStateHooks();
+  const callingState = useCallCallingState();
+  const router = useRouter();
+  useEffect(() => {
+    if (callingState === CallingState.LEFT) {
+      router.push('/');
+    }
+  }, [callingState, router]);
   return (
     <section className='relative h-screen w-full overflow-hidden pt-4 text-white'>
       <div className='relative flex size-full items-center justify-center '>
