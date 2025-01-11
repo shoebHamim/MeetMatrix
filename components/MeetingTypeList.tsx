@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import HomeCard from "./HomeCard";
 import { useRouter } from "next/navigation";
 import MeetingModal from "./MeetingModal";
-import { title } from "process";
+import { useUser } from "@clerk/nextjs";
+import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
+
 
 
 const MeetingTypeList = () => {
@@ -11,9 +13,40 @@ const MeetingTypeList = () => {
   const [meetingState, setMeetingState] = useState<
     "isScheduledMeeting" | "isJoiningMeeting" | "isInstantMeeting" | undefined
   >();
-  console.log(meetingState);
-  const createMeeting=()=>{
+  //! get clerk user
+  const {user}=useUser()
+  const client=useStreamVideoClient()
+  const [values,setValues]=useState({
+    datetime:new Date(),
+    description:"",
+    link:""
+  })
+  const [callDetails,setCallDetails]=useState<Call>()
+  const createMeeting=async()=>{
+    if(!client||!user) return
+    try{
+      const id=crypto.randomUUID();
+      const call=client.call('default',id)
+      if(!call) throw new Error('Failed to crate call')
+      
+      const startsAt=values.datetime.toISOString()||new Date(Date.now()).toISOString()
+      const description=values.description||"Instant Meeting"
+      await call.getOrCreate({
+        data:{
+          starts_at:startsAt,
+          custom:{
+            description
+          }
+        }
+      })
+      setCallDetails(call)
+      if(!values.description){
+        router.push(`/meeting/${call.id}`)
+      }
 
+    }catch(error){
+      console.log(error);
+    }
   }
 
 

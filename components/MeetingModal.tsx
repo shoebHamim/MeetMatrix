@@ -2,8 +2,6 @@ import React, { ReactNode } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -43,7 +41,7 @@ const MeetingModal = ({
           {image&& <div className="flex justify-center">
             <Image src={image} alt="image" width={72} height={72}></Image>
             </div>}
-            <h1 className={cn('text-2xl font-bold leading-[42px]')}>{title}</h1>
+            <h1 className={cn('text-2xl font-bold leading-[42px]',className)}>{title}</h1>
             {children}
             <Button className="bg-blue-1 " onClick={handleClick}>
               {buttonIcon&&(<Image src={buttonIcon} alt="buttonIcon" width={13}height={13}></Image>)}

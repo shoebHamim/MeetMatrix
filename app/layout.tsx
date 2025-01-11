@@ -4,6 +4,7 @@ import "./globals.css";
 import {
   ClerkProvider,
 } from "@clerk/nextjs";
+import StreamVideoProvider from "@/providers/streamClientProvider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,11 +28,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <ClerkProvider>
-        <body
-          className={`bg-dark-2 ${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
+        <StreamVideoProvider>
+        <body className={`bg-dark-2 ${geistSans.variable} ${geistMono.variable} antialiased`}>
           {children}
         </body>
+        </StreamVideoProvider>
       </ClerkProvider>
     </html>
   );

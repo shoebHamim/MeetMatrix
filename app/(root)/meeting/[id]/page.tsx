@@ -1,11 +1,10 @@
 import React from 'react'
 
-const Meeting = ({
+const Meeting = async({
   params
-}: {params: { id: string }}) => {
-  console.log(params.id);
+}: {params: Promise<{ id: string }>}) => {
   return (
-    <div>Meeting Room {params.id}</div>
+    <div>Meeting Room { (await params).id}</div>
   )
 }
 
