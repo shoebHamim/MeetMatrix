@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import MeetingModal from "./MeetingModal";
 import { useUser } from "@clerk/nextjs";
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { useToast } from "@/hooks/use-toast";
 
 
 
@@ -15,6 +16,7 @@ const MeetingTypeList = () => {
   >();
   //! get clerk user
   const {user}=useUser()
+  
   const client=useStreamVideoClient()
   const [values,setValues]=useState({
     datetime:new Date(),
@@ -22,9 +24,16 @@ const MeetingTypeList = () => {
     link:""
   })
   const [callDetails,setCallDetails]=useState<Call>()
+  const {toast}=useToast()
   const createMeeting=async()=>{
     if(!client||!user) return
     try{
+      if(!values.datetime){
+        toast({
+          title: "Please select a date and time",
+        })
+        return
+      }
       const id=crypto.randomUUID();
       const call=client.call('default',id)
       if(!call) throw new Error('Failed to crate call')
@@ -43,9 +52,14 @@ const MeetingTypeList = () => {
       if(!values.description){
         router.push(`/meeting/${call.id}`)
       }
-
+      toast({
+        title: "Meeting Created",
+      })
     }catch(error){
       console.log(error);
+      toast({
+        title: "Failed to create Meeting",
+      })
     }
   }
 
